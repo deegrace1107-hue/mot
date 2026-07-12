@@ -8,7 +8,6 @@
     <meta name="theme-color" content="#ff9800">
     <style>
         * { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; box-sizing: border-box; }
-        /* ✅ SOLO CAMBIAMOS LOS COLORES, EL RESTO DEL DISEÑO SE MANTIENE IGUAL */
         body { background: linear-gradient(135deg, #121212, #1e1e1e); min-height: 100vh; padding: 20px; text-align: center; color: #f5f5f5; }
         .contenedor { max-width: 450px; margin: 0 auto; }
         h1 { color: #ff9800; font-size: 28px; margin-bottom: 20px; }
@@ -16,6 +15,8 @@
         .seccion { background: rgba(255,152,0,0.05); padding: 18px; border-radius: 15px; margin-bottom: 15px; text-align: left; border: 1px solid #333; }
         .seccion h3 { color: #ffb74d; margin-bottom: 12px; text-align: center; }
         input, select { width: 100%; padding: 10px; margin: 6px 0; border: 2px solid #ff9800; border-radius: 10px; font-size: 15px; background: #222; color: #fff; }
+        .input-texto { margin-top:8px; display:none; }
+        .input-texto.activo { display:block; }
         .boton { width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 15px; font-size: 17px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
         .boton:hover { transform: translateY(-2px); }
         .agregar { background: #ff9800; color: #121212; }
@@ -31,6 +32,8 @@
         .horario-item { background: #1a1a1a; padding: 12px; border-radius: 10px; margin: 8px 0; border-left: 4px solid #ff9800; display: flex; justify-content: space-between; align-items: center; }
         .btn-eliminar { background: #ff5252; border: none; padding: 6px 10px; border-radius: 8px; cursor: pointer; color: white; font-weight: bold; }
         .estado { margin-top: 15px; font-size: 15px; color: #ffcc80; font-weight: bold; }
+        .sub-opcion { margin-top:10px; padding:10px; background:rgba(255,152,0,0.08); border-radius:8px; display:none; }
+        .sub-opcion.activo { display:block; }
     </style>
 </head>
 <body>
@@ -40,21 +43,22 @@
             ¡Hola! 🥰 Elige cómo quieres que te acompañe, y empecemos 💖
         </div>
 
-        <!-- ELECCIÓN DEL TRATO -->
         <div class="seccion">
             <h3>🎙️ ¿Cómo prefieres que te hable?</h3>
             <select id="tipoTrato">
                 <option value="mujer">👩‍❤️‍👩 Como amiga: mi amor, vamos juntas</option>
                 <option value="hombre">👨‍❤️‍👨 Como amigo: bro, vamos juntos</option>
+                <option value="audio">🎧 Con mis audios grabados</option>
             </select>
             <button class="boton confirmar" onclick="aplicarTrato()">✅ Elegir y empezar</button>
         </div>
 
-        <!-- SECCIÓN DE HORARIOS -->
         <div class="seccion">
             <h3>📅 Agregar recordatorio</h3>
             <input type="time" id="horaRecordatorio" placeholder="Hora">
-            <select id="tipoTarea">
+            
+            <select id="tipoTarea" onchange="mostrarOpciones()">
+                <option value="">Selecciona qué vas a hacer</option>
                 <option value="limpiar">🧺 Ordenar / Limpiar</option>
                 <option value="estudiar">📚 Estudiar / Repasar</option>
                 <option value="ejercicio">🏃 Hacer ejercicio</option>
@@ -64,6 +68,90 @@
                 <option value="descanso">💆 Descansar / Relajarse</option>
                 <option value="otro">💬 Otra cosa</option>
             </select>
+
+            <div class="sub-opcion" id="opcionesLimpiar">
+                <select id="detalleLimpiar">
+                    <option value="">¿Qué vas a ordenar?</option>
+                    <option value="sala">🛋️ Sala y comedor</option>
+                    <option value="cocina">🍳 Cocina y trastes</option>
+                    <option value="habitacion">🛏️ Habitación</option>
+                    <option value="bano">🚽 Baño</option>
+                    <option value="ropa">👕 Lavar/ordenar ropa</option>
+                    <option value="jardin">🌿 Patio o jardín</option>
+                </select>
+            </div>
+
+            <div class="sub-opcion" id="opcionesEstudiar">
+                <select id="detalleEstudiar">
+                    <option value="">¿Qué vas a estudiar?</option>
+                    <option value="leer">📖 Leer y aprender</option>
+                    <option value="repasar">📝 Repasar temas</option>
+                    <option value="tareas">📚 Hacer tareas</option>
+                    <option value="examen">📋 Preparar examen</option>
+                    <option value="curso">🎓 Curso o capacitación</option>
+                    <option value="proyecto">📂 Proyecto especial</option>
+                </select>
+            </div>
+
+            <div class="sub-opcion" id="opcionesEjercicio">
+                <select id="detalleEjercicio">
+                    <option value="">¿Qué tipo de ejercicio?</option>
+                    <option value="calentar">🔥 Calentamiento</option>
+                    <option value="piernas">🦵 Piernas y glúteos</option>
+                    <option value="brazos">💪 Brazos y espalda</option>
+                    <option value="estirar">🧘 Estiramiento</option>
+                    <option value="completo">🏃 Rutina completa</option>
+                </select>
+            </div>
+
+            <div class="sub-opcion" id="opcionesComer">
+                <select id="detalleComer">
+                    <option value="">¿Qué vas a hacer?</option>
+                    <option value="desayuno">🥐 Desayuno</option>
+                    <option value="almuerzo">🍲 Almuerzo</option>
+                    <option value="merienda">🍎 Merienda</option>
+                    <option value="cena">🍵 Cena</option>
+                    <option value="preparar">🥗 Preparar comida</option>
+                    <option value="fruta">🍊 Comer frutas/verduras</option>
+                </select>
+            </div>
+
+            <div class="sub-opcion" id="opcionesDuchar">
+                <select id="detalleDuchar">
+                    <option value="">¿Cómo prefieres hacerlo?</option>
+                    <option value="rapido">🚿 Ducha rápida</option>
+                    <option value="relajante">🛁 Ducha relajante</option>
+                    <option value="arreglarse">💇 Arreglarte y cuidarte</option>
+                    <option value="piel">🧴 Cuidar tu piel</option>
+                </select>
+            </div>
+
+            <div class="sub-opcion" id="opcionesTareas">
+                <select id="detalleTareas">
+                    <option value="">¿En qué vas a trabajar?</option>
+                    <option value="recicladora">♻️ Recicladora</option>
+                    <option value="cuentas">📊 Cuentas y registros</option>
+                    <option value="proyectos">📋 Proyectos nuevos</option>
+                    <option value="mensajes">💬 Responder mensajes</option>
+                    <option value="reunion">🤝 Reunión o visita</option>
+                </select>
+            </div>
+
+            <div class="sub-opcion" id="opcionesDescanso">
+                <select id="detalleDescanso">
+                    <option value="">¿Cómo te gusta descansar?</option>
+                    <option value="dormir">😴 Dormir un rato</option>
+                    <option value="leer">📖 Leer algo bonito</option>
+                    <option value="musica">🎧 Escuchar música</option>
+                    <option value="salir">🚶 Salir a caminar</option>
+                    <option value="meditar">🧘 Meditar y respirar</option>
+                </select>
+            </div>
+
+            <div class="sub-opcion input-texto" id="opcionesOtro">
+                <input type="text" id="textoOtro" placeholder="Escribe aquí lo que vas a hacer...">
+            </div>
+
             <button class="boton agregar" onclick="agregarRecordatorio()">➕ Agregar al horario</button>
         </div>
 
@@ -84,39 +172,83 @@
     </div>
 
     <script>
-        // ✅ TODO TU CÓDIGO ORIGINAL SE MANTIENE INTACTO, NO SE MODIFICÓ NINGUNA FUNCIÓN
         let trato = localStorage.getItem('tratoDola') || 'mujer';
         let horario = JSON.parse(localStorage.getItem('horarioDola')) || [];
         let intervaloVerificacion;
+        let audioActual = null;
 
-        // MENSAJES SEGÚN LA OPCIÓN ELEGIDA
+        // MENSAJES CON LOS NUEVOS MENSAJITOS DE EJERCICIO 🥰
         const textos = {
             mujer: {
                 saludo: "¡Hola mi vida! Qué alegría estar contigo. Todo está bien, vamos a hacerlo muy bien juntas, paso a paso. No tienes que hacerlo sola, yo te acompaño en todo. ¡Tú puedes con todo! 💖",
                 limpiar: "¿Qué pasó mi amor? No te preocupes, vamos despacito. Es hora de ordenar, levántate sin miedo, lo hacemos juntas. ¡Tú puedes! 💪✨",
                 estudiar: "Ánimo mi corazón. Sé que cansa, pero recuerda tu sueño. Solo empieza poquito a poco, yo estoy aquí contigo. ¡Eres muy capaz! 💖",
-                ejercicio: "Vamos mi preciosa. Sé que da pereza, pero te sentirás genial después. Mueve el cuerpo despacito, ¡tú puedes lograrlo! 🤗",
-                comer: "Mi vida, es hora de comer rico. Aliméntate bien, te lo mereces mucho. ¡Vamos! 💖",
-                duchar: "Es hora de cuidarte amiga. Entra al baño, relájate y sal sintiéndote hermosa. ✨",
+                ejercicio: "Ay mi preciosa, no te hagas la tonta... ¿te diste cuenta que estás un poquito gordita? ¡Ese vestido tan lindo que compraste para Navidad ya casi no te entra! Vamos chanchita, muévete un rato, que te va a quedar preciosa y vas a brillar mucho. ¡Vamos tú puedes! 💃✨💪",
+                piernas: "Vamos mi vida, trabaja esas piernas. ¡Queremos que ese vestido te quede como de princesa! No te rindas, muévete más chanchita, que Navidad está cerca. 💖🦵✨",
+                brazos: "Mueve esos bracitos mi amor, que queremos que te veas guapísima. ¡Vamos que el vestido te va a quedar perfecto! Ánimo preciosa. 💪💃",
+                calentar: "Empecemos despacito mi cielo, calienta bien. ¡Vamos que vamos a lucirnos mucho en Navidad! No te detengas. ✨💖",
+                estirar: "Estira bien mi vida, relájate un poquito pero sigue así. ¡Vamos que te vas a ver hermosa! 💖✨",
+                completo: "Dale todo mi amor, mueve todo el cuerpo. ¡Ese vestido te va a quedar espectacular! Vamos chanchita, tú puedes lograrlo. 💃💪✨",
+                comer: "Mi vida, es hora de comer rico y ligero. Cuídate mucho que queremos verte preciosa para Navidad. ¡Vamos! 💖",
+                duchar: "Es hora de cuidarte amiga. Entra al baño, relájate y empieza a sentirte mejor cada día. ✨",
                 tareas: "Vamos talentosa. Sé que cansa, pero mira todo lo que haces bien. Empieza despacito, aquí te ayudo. 💪",
-                descanso: "Amiga, descansar no es perder tiempo. Relájate, te lo mereces muchísimo. 💖",
+                descanso: "Amiga, descansar no es perder tiempo. Relájate un poquito y sigue adelante. 💖",
                 otro: "Sea lo que sea, no estás sola. Respira profundo y vamos juntas. ¡Estoy muy orgullosa de ti! ✨"
             },
             hombre: {
                 saludo: "¡Qué tal amigo! Un gusto estar contigo. Todo va a salir muy bien, vamos a hacerlo juntos paso a paso. No tienes que hacerlo solo, aquí te apoyo en todo. ¡Tú puedes con todo! 💪",
                 limpiar: "¿Qué pasa bro? Tranquilo, vamos despacio. Es hora de ordenar, anímate que lo hacemos juntos. ¡Tú puedes! ✨",
                 estudiar: "Ánimo campeón. Sé que cuesta, pero recuerda por qué empezaste. Solo empieza poco a poco, aquí estoy contigo. ¡Eres muy capaz! 💯",
-                ejercicio: "Vamos amigo. Sé que da pereza, pero te vas a sentir excelente. Mueve el cuerpo despacito, ¡tú puedes lograrlo! 🤜🤛",
-                comer: "Es hora de comer bien amigo. Aliméntate rico, te lo mereces. ¡Vamos! 💪",
+                ejercicio: "Oye amigo... ¿te diste cuenta que has subido de peso? ¡Esa camisa bonita ya te queda pipón! Se te salen los botones y se te ve la panza. Vamos campeón, haz ejercicio que queremos verte papelito y guapo para Navidad. ¡Muévete ya! 💪😎✨",
+                piernas: "Dale fuerte a esas piernas bro. ¡Queremos verte bien fuerte y guapo! Vamos que Navidad ya llega, no te quedes sentado. 🦵💪✨",
+                brazos: "¡Eso es campeón! Mueve esos brazos, que queremos que esa camisa te quede perfecta. ¡Vamos que te vas a ver genial! 💪😎",
+                calentar: "Empecemos calentando bien amigo. ¡Vamos que vas a estar de diez para las fiestas! No te detengas. ✨💪",
+                estirar: "Estira bien bro, relájate pero sigue así. ¡Vamos que vas a quedar espectacular! 💪✨",
+                completo: "Dale todo lo que tienes amigo. ¡Queremos verte papelito y muy guapo para Navidad! ¡Tú puedes con todo! 💪😎✨",
+                comer: "Amigo, come bien y sano. Cuídate mucho que queremos verte genial. ¡Vamos! 💪",
                 duchar: "Es hora de cuidarte bro. Entra al baño, relájate y sal renovado. ✨",
                 tareas: "Vamos crack. Sé que cansa, pero mira todo lo que sabes hacer. Empieza despacito, aquí te ayudo. 💪",
                 descanso: "Amigo, descansar es necesario. Relájate un rato, te lo has ganado. 💯",
                 otro: "Sea lo que sea, no vas solo. Respira profundo y vamos juntos. ¡Estoy muy orgulloso de ti! ✨"
+            },
+            audio: {
+                saludo: "¡Hola! Qué alegría estar contigo 💖",
+                ejercicio: "Vamos a movernos, que te vas a ver precioso/a para Navidad 💪✨",
+                piernas: "Trabaja esas piernas con ganas 💖",
+                brazos: "Dale fuerte a esos brazos 💪",
+                calentar: "Empecemos con energía ✨",
+                estirar: "Relájate y sigue avanzando 💖",
+                completo: "Mueve todo el cuerpo, ¡tú puedes! 💪",
+                limpiar: "Es hora de ordenar, ¡vamos tú puedes! 💪✨",
+                estudiar: "Ánimo, tú eres muy capaz 💖",
+                comer: "Aliméntate bien, te lo mereces 💖",
+                duchar: "Cuídate mucho y relájate ✨",
+                tareas: "Empieza despacito, yo te acompaño 💪",
+                descanso: "Descansa, te lo has ganado 💯",
+                otro: "No estás solo, vamos juntos ✨"
             }
         };
 
-        // Función para hablar
-        function hablar(texto) {
+        function mostrarOpciones() {
+            const tipo = document.getElementById('tipoTarea').value;
+            document.querySelectorAll('.sub-opcion').forEach(el => el.classList.remove('activo'));
+            if(tipo) document.getElementById(`opciones${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).classList.add('activo');
+        }
+
+        function hablar(texto, tipo = 'saludo') {
+            const estado = document.getElementById('estadoVoz');
+            if(audioActual) { audioActual.pause(); audioActual = null; }
+
+            if(trato === 'audio') {
+                estado.textContent = "🎧 Reproduciendo tu audio...";
+                audioActual = new Audio(`${tipo}.mp3`);
+                audioActual.play()
+                    .then(() => estado.textContent = "✅ Listo, aquí sigo contigo 💖")
+                    .catch(() => { estado.textContent = "⚠️ No se encontró el audio, usando voz 💖"; usarVoz(texto); });
+            } else { usarVoz(texto); }
+        }
+
+        function usarVoz(texto) {
             const estado = document.getElementById('estadoVoz');
             if ('speechSynthesis' in window) {
                 estado.textContent = "🎙️ Hablando...";
@@ -127,83 +259,78 @@
                 voz.pitch = trato === 'mujer' ? 1.1 : 0.95;
                 voz.onend = () => estado.textContent = "✅ Listo, aquí sigo contigo 💖";
                 speechSynthesis.speak(voz);
-            } else {
-                estado.textContent = "⚠️ Lee el mensaje con todo el cariño 💖";
-            }
+            } else { estado.textContent = "⚠️ Lee el mensaje con todo el cariño 💖"; }
         }
 
-        // Cambiar y guardar el trato
         function aplicarTrato() {
             trato = document.getElementById('tipoTrato').value;
             localStorage.setItem('tratoDola', trato);
             document.getElementById('cajaMensaje').textContent = textos[trato].saludo;
-            hablar(textos[trato].saludo);
+            hablar(textos[trato].saludo, 'saludo');
         }
 
-        // Mostrar horario guardado
         function mostrarHorario() {
             const lista = document.getElementById('listaHorario');
-            if (horario.length === 0) {
-                lista.innerHTML = '<p style="text-align:center; color:#888;">Aún no tienes recordatorios 💖</p>';
-                return;
-            }
+            if (horario.length === 0) { lista.innerHTML = '<p style="text-align:center; color:#888;">Aún no tienes recordatorios 💖</p>'; return; }
             lista.innerHTML = '';
             horario.forEach((item, i) => {
                 const div = document.createElement('div');
                 div.className = 'horario-item';
-                div.innerHTML = `
-                    <span><strong>${item.hora}</strong> - ${item.nombre}</span>
-                    <button class="btn-eliminar" onclick="eliminar(${i})">✕</button>
-                `;
+                div.innerHTML = `<span><strong>${item.hora}</strong> - ${item.nombre}</span><button class="btn-eliminar" onclick="eliminar(${i})">✕</button>`;
                 lista.appendChild(div);
             });
         }
 
-        // Agregar recordatorio
         function agregarRecordatorio() {
             const hora = document.getElementById('horaRecordatorio').value;
             const tipo = document.getElementById('tipoTarea').value;
-            const nombre = document.getElementById('tipoTarea').selectedOptions[0].text;
-            if (!hora) { alert('Pon la hora por favor 💖'); return; }
-            horario.push({ hora, tipo, nombre });
+            if (!hora || !tipo) return alert('Completa la hora y qué vas a hacer por favor 💖');
+
+            let nombre = document.getElementById('tipoTarea').selectedOptions[0].text;
+            let detalle = '';
+            if(tipo !== 'otro') {
+                const sel = document.getElementById(`detalle${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`);
+                detalle = sel.value ? sel.selectedOptions[0].text : '';
+            } else {
+                detalle = document.getElementById('textoOtro').value.trim();
+                if(!detalle) return alert('Escribe qué vas a hacer 💖');
+            }
+
+            const nombreCompleto = detalle ? `${nombre}: ${detalle}` : nombre;
+            horario.push({ hora, tipo, nombre: nombreCompleto, detalle });
             horario.sort((a,b) => a.hora.localeCompare(b.hora));
             localStorage.setItem('horarioDola', JSON.stringify(horario));
             mostrarHorario();
-            alert('¡Listo! Te avisaré a esa hora 💖');
+            alert(`¡Listo! Agregaste: ${nombreCompleto} 💖`);
         }
 
-        // Eliminar recordatorio
         function eliminar(i) {
             horario.splice(i, 1);
             localStorage.setItem('horarioDola', JSON.stringify(horario));
             mostrarHorario();
         }
 
-        // Verificar alarmas
         function verificar() {
             const ahora = new Date().toTimeString().slice(0,5);
             horario.forEach(item => {
                 if (item.hora === ahora) {
-                    darMotivacion(item.tipo);
-                    if (Notification.permission === 'granted') {
-                        new Notification('✨ Motívate con Dola', { body: `¡Es hora! ${item.nombre}` });
-                    }
+                    darMotivacion(item.tipo, item.detalle);
+                    if (Notification.permission === 'granted') new Notification('✨ Motívate con Dola', { body: `¡Es hora! ${item.nombre}` });
                 }
             });
         }
 
-        // Motivar
-        function darMotivacion(tarea) {
-            const texto = textos[trato][tarea];
+        function darMotivacion(tarea, detalle = null) {
+            let texto = textos[trato][detalle] || textos[trato][tarea];
+            if(!texto) texto = textos[trato].otro;
             document.getElementById('cajaMensaje').textContent = texto;
-            hablar(texto);
+            hablar(texto, detalle || tarea);
         }
 
-        // Iniciar al abrir la app
         if (Notification.permission !== 'granted') Notification.requestPermission();
         document.getElementById('tipoTrato').value = trato;
         mostrarHorario();
-        hablar(textos[trato].saludo);
+        hablar(textos[trato].saludo, 'saludo');
         intervaloVerificacion = setInterval(verificar, 60000);
     </script>
 </body>
