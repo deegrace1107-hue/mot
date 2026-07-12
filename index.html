@@ -3,42 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Motívate✨</title>
+    <title>✨ Tu acompañante Dola ✨</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icono-192.png">
     <meta name="theme-color" content="#ff9800">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Dola Motívate">
+    <meta name="apple-mobile-web-app-title" content="Tu acompañante Dola">
     
     <style>
         :root {
             --color-principal: #ff9800;
             --color-principal-claro: #ffb74d;
             --color-principal-clarito: #ffcc80;
+            --fondo-principal: #121212;
+            --fondo-secundario: #1a1a1a;
+            --texto-principal: #f5f5f5;
+            --texto-secundario: #aaa;
+            --borde: #333;
+            --sombra: rgba(255,152,0,0.2);
+        }
+        .modo-claro {
+            --fondo-principal: #f8f9fa;
+            --fondo-secundario: #ffffff;
+            --texto-principal: #212121;
+            --texto-secundario: #666;
+            --borde: #ddd;
+            --sombra: rgba(255,152,0,0.15);
         }
         * { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; box-sizing: border-box; }
-        body { background: linear-gradient(135deg, #121212, #1e1e1e); min-height: 100vh; padding: 20px; text-align: center; color: #f5f5f5; }
+        body { background: linear-gradient(135deg, var(--fondo-principal), var(--fondo-secundario)); min-height: 100vh; padding: 20px; text-align: center; color: var(--texto-principal); transition: background 0.3s ease, color 0.3s ease; }
         .contenedor { max-width: 450px; margin: 0 auto; }
-        h1 { color: var(--color-principal); font-size: 28px; margin-bottom: 20px; }
-        .mensaje { background: #1a1a1a; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px color-mix(in srgb, var(--color-principal) 20%, transparent); margin-bottom: 20px; font-size: 19px; color: #f0f0f0; line-height: 1.6; border: 1px solid #333; }
-        .aviso { font-size: 14px; margin: 10px 0; padding: 8px; border-radius: 10px; background: rgba(255,152,0,0.1); color: var(--color-principal-clarito); }
-        .seccion { background: color-mix(in srgb, var(--color-principal) 5%, transparent); padding: 18px; border-radius: 15px; margin-bottom: 15px; text-align: left; border: 1px solid #333; }
+        h1 { color: var(--color-principal); font-size: 28px; margin-bottom: 15px; }
+        .mensaje { background: var(--fondo-secundario); padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px var(--sombra); margin-bottom: 20px; font-size: 18px; color: var(--texto-principal); line-height: 1.7; border: 1px solid var(--borde); transition: all 0.3s ease; }
+        .aviso { font-size: 14px; margin: 10px 0; padding: 8px; border-radius: 10px; background: color-mix(in srgb, var(--color-principal) 10%, transparent); color: var(--color-principal-clarito); }
+        .seccion { background: color-mix(in srgb, var(--color-principal) 5%, transparent); padding: 18px; border-radius: 15px; margin-bottom: 15px; text-align: left; border: 1px solid var(--borde); transition: all 0.3s ease; }
         .seccion h3 { color: var(--color-principal-claro); margin-bottom: 12px; text-align: center; }
-        input, select { width: 100%; padding: 10px; margin: 6px 0; border: 2px solid var(--color-principal); border-radius: 10px; font-size: 15px; background: #222; color: #fff; }
+        input, select, textarea { width: 100%; padding: 10px; margin: 6px 0; border: 2px solid var(--color-principal); border-radius: 10px; font-size: 15px; background: var(--fondo-secundario); color: var(--texto-principal); transition: all 0.3s ease; resize: vertical; }
+        textarea { min-height: 90px; }
+        .input-archivo { padding: 6px; font-size: 14px; }
         .input-texto { margin-top:8px; display:none; }
         .input-texto.activo { display:block; }
         .boton { width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 15px; font-size: 17px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
         .boton:hover { transform: translateY(-2px); }
+        .boton-chico { padding: 10px; font-size: 15px; margin: 4px 0; }
+        .boton-modo { background: var(--color-principal-clarito); color: #121212; margin-bottom: 10px; }
         .boton-musica { background: #ff4081; color: white; margin-bottom: 5px; }
         .boton-video { background: #f44336; color: white; margin-bottom: 5px; }
+        .boton-grabar { background: #e91e63; color: white; }
+        .boton-parar { background: #ff5252; color: white; display: none; }
+        .boton-escuchar { background: #9c27b0; color: white; }
+        .boton-borrar { background: #ff5252; color: white; }
         .agregar { background: var(--color-principal); color: #121212; }
         .confirmar { background: var(--color-principal-claro); color: #121212; }
-        .personalizado { background: #333; color: var(--color-principal); border: 1px solid var(--color-principal); }
-        .horario-item { background: #1a1a1a; padding: 12px; border-radius: 10px; margin: 8px 0; border-left: 4px solid var(--color-principal); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .hablarme { background: #9c27b0; color: white; margin-bottom: 10px; }
+        .semana { background: #4caf50; color: white; }
+        .horario-item { background: var(--fondo-secundario); padding: 12px; border-radius: 10px; margin: 8px 0; border-left: 4px solid var(--color-principal); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; transition: all 0.3s ease; }
+        .etiqueta-semana { font-size: 12px; background: var(--color-principal); color: #121212; padding: 2px 6px; border-radius: 6px; }
         .btn-eliminar { background: #ff5252; border: none; padding: 6px 10px; border-radius: 8px; cursor: pointer; color: white; font-weight: bold; }
         .estado { margin-top: 15px; font-size: 15px; color: var(--color-principal-clarito); font-weight: bold; }
-        .sub-opcion { margin-top:10px; padding:10px; background: color-mix(in srgb, var(--color-principal) 8%, transparent); border-radius:8px; display:none; }
+        .sub-opcion { margin-top:10px; padding:10px; background: color-mix(in srgb, var(--color-principal) 8%, transparent); border-radius:8px; display:none; transition: all 0.3s ease; }
         .sub-opcion.activo { display:block; }
         .opciones-colores { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
         .boton-color { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.2s; }
@@ -49,13 +73,23 @@
         .boton-color.morado { background: #9c27b0; }
         .boton-color.verde { background: #4caf50; }
         .boton-color.rojo { background: #f44336; }
+        .caja-audio { background: color-mix(in srgb, var(--fondo-principal) 70%, transparent); padding: 12px; border-radius: 12px; margin-top: 10px; transition: all 0.3s ease; }
+        .grabando { color: #ff5252; font-weight: bold; animation: parpadeo 1s infinite; }
+        @keyframes parpadeo { 0% {opacity:1;} 50% {opacity:0.5;} 100% {opacity:1;} }
     </style>
 </head>
 <body>
     <div class="contenedor">
-        <h1>✨ Motívate✨</h1>
+        <h1>✨ Tu acompañante Dola ✨</h1>
+
+        <div class="seccion">
+            <h3>🌓 Tema de la app</h3>
+            <button class="boton boton-modo" onclick="alternarModo()" id="botonModo">🌑 Cambiar a fondo claro</button>
+            <button class="boton hablarme" onclick="hablarSobreMi()">💬 Quiero hablar contigo</button>
+        </div>
+
         <div class="mensaje" id="cajaMensaje">
-            ¡Hola! 🥰 Elige cómo quieres que te acompañe, y empecemos 💖
+            ¡Hola mi vida! Qué alegría estar aquí contigo, yo te acompaño en todo. Elige cómo quieres que te hable, yo me adapto a ti ✨
         </div>
         <div class="aviso" id="avisoInternet"></div>
 
@@ -72,13 +106,24 @@
         </div>
 
         <div class="seccion">
-            <h3>🎙️ ¿Cómo prefieres que te hable?</h3>
-            <select id="tipoTrato">
-                <option value="mujer">👩‍❤️‍👩 amiga: mi amor, vamos juntas</option>
-                <option value="hombre">👨‍❤️‍👨 amigo: vamos juntos</option>
-                <option value="audio">🎧 Con mis audios grabados</option>
+            <h3>🎙️ ¿Cómo quieres que te hable?</h3>
+            <select id="tipoTrato" onchange="mostrarOpcionesAudio()">
+                <option value="">Elige la opción que prefieras</option>
+                <option value="mujer">👩 Como amiga tierna: "mi amor, vamos juntas"</option>
+                <option value="hombre">👨 Como amigo leal: "amigo/a, vamos juntos"</option>
+                <option value="audio">🎧 Usar MIS AUDIOS PERSONALIZADOS</option>
             </select>
-            <button class="boton confirmar" onclick="aplicarTrato()">✅ Elegir y empezar</button>
+
+            <div id="cajaGrabacion" class="caja-audio" style="display:none;">
+                <p class="estado">🎤 Aquí grabas o subes tus propios audios 💖</p>
+                <button id="btnGrabar" class="boton boton-grabar boton-chico" onclick="iniciarGrabacion()">🎙️ Grabar mi mensaje</button>
+                <button id="btnParar" class="boton boton-parar boton-chico" onclick="detenerGrabacion()">⏹️ Detener grabación</button>
+                <p id="estadoGrabacion"></p>
+                <p style="margin-top:10px; font-size:14px;">O sube un audio que ya tengas:</p>
+                <input type="file" id="subirAudio" accept="audio/*" class="input-archivo" onchange="guardarAudioSubido(event)">
+                <div id="audiosGuardados" style="margin-top:10px;"></div>
+            </div>
+            <button class="boton confirmar" onclick="aplicarTrato()">✅ Guardar y empezar</button>
         </div>
 
         <div class="seccion">
@@ -87,110 +132,63 @@
             
             <select id="tipoTarea" onchange="mostrarOpciones()">
                 <option value="">Selecciona qué vas a hacer</option>
+                <option value="desayuno">🥐 Preparar desayuno</option>
+                <option value="almuerzo">🍲 Preparar almuerzo</option>
+                <option value="cena">🍵 Preparar cena</option>
                 <option value="limpiar">🧺 Ordenar / Limpiar</option>
                 <option value="estudiar">📚 Estudiar / Repasar</option>
                 <option value="ejercicio">🏃 Hacer ejercicio</option>
-                <option value="comer">🍽️ Comer / Preparar comida</option>
                 <option value="duchar">🚿 Ducharse / Arreglarse</option>
                 <option value="tareas">💻 Trabajo / Proyectos</option>
                 <option value="descanso">💆 Descansar / Relajarse</option>
+                <option value="cuidado">💖 Cuidarme (agua, medicina, etc.)</option>
                 <option value="otro">💬 Otra cosa</option>
             </select>
 
-            <div class="sub-opcion" id="opcionesLimpiar">
-                <select id="detalleLimpiar">
-                    <option value="">¿Qué vas a ordenar?</option>
-                    <option value="sala">🛋️ Sala y comedor</option>
-                    <option value="cocina">🍳 Cocina y trastes</option>
-                    <option value="habitacion">🛏️ Habitación</option>
-                    <option value="bano">🚽 Baño</option>
-                    <option value="ropa">👕 Lavar/ordenar ropa</option>
-                    <option value="jardin">🌿 Patio o jardín</option>
-                </select>
-                <button class="boton boton-musica" onclick="abrirMusica()">🎵 Poner música para limpiar</button>
-            </div>
-
-            <div class="sub-opcion" id="opcionesEstudiar">
-                <select id="detalleEstudiar">
-                    <option value="">¿Qué vas a estudiar?</option>
-                    <option value="leer">📖 Leer y aprender</option>
-                    <option value="repasar">📝 Repasar temas</option>
-                    <option value="tareas">📚 Hacer tareas</option>
-                    <option value="examen">📋 Preparar examen</option>
-                    <option value="curso">🎓 Curso o capacitación</option>
-                    <option value="proyecto">📂 Proyecto especial</option>
-                </select>
+            <div class="sub-opcion" id="opcionesComida">
+                <p style="font-size:14px; margin-bottom:8px;">¿Quieres que te dé ideas fáciles y ricas de Ecuador? 😋</p>
+                <button class="boton boton-chico" onclick="darIdeasComida()">✨ Ver ideas de comidas</button>
             </div>
 
             <div class="sub-opcion" id="opcionesEjercicio">
                 <select id="detalleEjercicio">
-                    <option value="">¿Qué tipo de ejercicio?</option>
-                    <option value="calentar">🔥 Calentamiento general</option>
+                    <option value="">¿Qué rutina prefieres hacer?</option>
+                    <option value="suave">🌿 Ejercicios muy suaves</option>
                     <option value="piernas">🦵 Piernas y glúteos</option>
-                    <option value="brazos">💪 Brazos, bíceps y espalda</option>
-                    <option value="estirar">🧘 Estiramiento completo</option>
-                    <option value="cardio">❤️ Cardio y moverse rápido</option>
+                    <option value="brazos">💪 Brazos y espalda</option>
+                    <option value="estirar">🧘 Solo estiramientos</option>
                     <option value="completo">🏃 Rutina completa</option>
                 </select>
-                <button class="boton boton-video" onclick="abrirVideoEjercicio()">▶️ Ver video de la rutina</button>
+                <button class="boton boton-video" onclick="abrirVideoEjercicio()">▶️ Ver video de ayuda</button>
             </div>
 
-            <div class="sub-opcion" id="opcionesComer">
-                <select id="detalleComer">
-                    <option value="">¿Qué vas a hacer?</option>
-                    <option value="desayuno">🥐 Desayuno</option>
-                    <option value="almuerzo">🍲 Almuerzo</option>
-                    <option value="merienda">🍎 Merienda</option>
-                    <option value="cena">🍵 Cena</option>
-                    <option value="preparar">🥗 Preparar comida / Cocinar</option>
-                    <option value="fruta">🍊 Comer frutas/verduras</option>
-                </select>
-                <button class="boton boton-musica" onclick="abrirMusica()">🎵 Poner música para cocinar</button>
-            </div>
-
-            <div class="sub-opcion" id="opcionesDuchar">
-                <select id="detalleDuchar">
-                    <option value="">¿Cómo prefieres hacerlo?</option>
-                    <option value="rapido">🚿 Ducha rápida</option>
-                    <option value="relajante">🛁 Ducha relajante</option>
-                    <option value="arreglarse">💇 Arreglarte y cuidarte</option>
-                    <option value="piel">🧴 Cuidar tu piel</option>
-                </select>
-            </div>
-
-            <div class="sub-opcion" id="opcionesTareas">
-                <select id="detalleTareas">
-                    <option value="">¿En qué vas a trabajar?</option>
-                    <option value="recicladora">♻️ Recicladora</option>
-                    <option value="cuentas">📊 Cuentas y registros</option>
-                    <option value="proyectos">📋 Proyectos nuevos</option>
-                    <option value="mensajes">💬 Responder mensajes</option>
-                    <option value="reunion">🤝 Reunión o visita</option>
-                </select>
-            </div>
-
-            <div class="sub-opcion" id="opcionesDescanso">
-                <select id="detalleDescanso">
-                    <option value="">¿Cómo te gusta descansar?</option>
-                    <option value="dormir">😴 Dormir un rato</option>
-                    <option value="leer">📖 Leer algo bonito</option>
-                    <option value="musica">🎧 Escuchar música</option>
-                    <option value="salir">🚶 Salir a caminar</option>
-                    <option value="meditar">🧘 Meditar y respirar</option>
+            <div class="sub-opcion" id="opcionesLimpiar">
+                <select id="detalleLimpiar">
+                    <option value="">¿Por dónde quieres empezar?</option>
+                    <option value="cocina">🍳 Cocina primero</option>
+                    <option value="sala">🛋️ Sala y comedor</option>
+                    <option value="habitacion">🛏️ Tu habitación</option>
+                    <option value="bano">🚽 Baño</option>
                 </select>
             </div>
 
             <div class="sub-opcion input-texto" id="opcionesOtro">
-                <input type="text" id="textoOtro" placeholder="Escribe aquí lo que vas a hacer...">
+                <input type="text" id="textoOtro" placeholder="Escribe aquí qué vas a hacer...">
             </div>
 
-            <button class="boton agregar" onclick="agregarRecordatorio()">➕ Agregar al horario</button>
+            <div style="margin:10px 0;">
+                <label style="font-size:15px;">
+                    <input type="checkbox" id="repetirSemana"> 📆 Repetir todos los días de la semana
+                </label>
+            </div>
+
+            <button class="boton agregar" onclick="agregarRecordatorio()">➕ Agregar recordatorio</button>
         </div>
 
         <div class="seccion">
-            <h3>📋 Mi horario</h3>
+            <h3>📋 Mis recordatorios</h3>
             <div id="listaHorario">
-                <p style="text-align:center; color:#888;">Aún no tienes recordatorios 💖</p>
+                <p style="text-align:center; color:var(--texto-secundario);">Aún no tienes recordatorios 💖</p>
             </div>
         </div>
 
@@ -206,11 +204,38 @@
             });
         }
 
-        // Verificar si hay internet
+        // ALTERNAR FONDO CON UN SOLO BOTÓN
+        function alternarModo() {
+            const estaClaro = document.documentElement.classList.contains('modo-claro');
+            const boton = document.getElementById('botonModo');
+            if(estaClaro) {
+                document.documentElement.classList.remove('modo-claro');
+                document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content = 'black-translucent';
+                boton.textContent = '🌑 Cambiar a fondo claro';
+                localStorage.setItem('modoFondo', 'oscuro');
+            } else {
+                document.documentElement.classList.add('modo-claro');
+                document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content = 'default';
+                boton.textContent = '☀️ Cambiar a fondo oscuro';
+                localStorage.setItem('modoFondo', 'claro');
+            }
+        }
+        function cargarModoGuardado() {
+            const guardado = localStorage.getItem('modoFondo') || 'oscuro';
+            const boton = document.getElementById('botonModo');
+            if(guardado === 'claro') {
+                document.documentElement.classList.add('modo-claro');
+                document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content = 'default';
+                boton.textContent = '☀️ Cambiar a fondo oscuro';
+            }
+        }
+        cargarModoGuardado();
+
+        // Verificar internet
         function hayInternet() {
             const aviso = document.getElementById('avisoInternet');
             const conectado = navigator.onLine;
-            aviso.textContent = conectado ? '✅ Conectado: puedes usar música y videos' : '⚠️ Sin internet: música y videos no estarán disponibles ahora';
+            aviso.textContent = conectado ? '✅ Conectado: puedes usar música y videos' : '⚠️ Sin internet: música y videos no estarán disponibles';
             aviso.style.display = 'block';
             setTimeout(() => aviso.style.display = 'none', 5000);
             return conectado;
@@ -219,20 +244,16 @@
         window.addEventListener('offline', hayInternet);
         hayInternet();
 
-        // Función para cambiar y guardar el color
+        // Cambiar color
         function cambiarColor(nombre, color, claro, clarito) {
             document.documentElement.style.setProperty('--color-principal', color);
             document.documentElement.style.setProperty('--color-principal-claro', claro);
             document.documentElement.style.setProperty('--color-principal-clarito', clarito);
             document.querySelector('meta[name="theme-color"]').content = color;
-            
             document.querySelectorAll('.boton-color').forEach(b => b.classList.remove('activo'));
             document.querySelector(`.boton-color.${nombre}`).classList.add('activo');
-            
             localStorage.setItem('colorApp', JSON.stringify({nombre, color, claro, clarito}));
         }
-
-        // Cargar el color guardado al abrir la app
         function cargarColorGuardado() {
             const guardado = localStorage.getItem('colorApp');
             if(guardado) {
@@ -242,132 +263,149 @@
         }
         cargarColorGuardado();
 
-        // Abrir música para limpiar o cocinar
-        function abrirMusica() {
-            if(!hayInternet()) return alert('No hay internet para poner música ahora 😕');
-            // Música alegre y animada ideal para limpiar/cocinar
-            window.open('https://www.youtube.com/results?search_query=m%C3%BAsica+alegre+para+limpiar+y+cocinar+animada', '_blank');
+        // Espacio para hablar
+        function hablarSobreMi() {
+            const tratoElegido = localStorage.getItem('tratoDola') || 'mujer';
+            const mensaje = tratoElegido === 'hombre' 
+                ? `¡Claro amigo/a! Aquí estoy para escucharte siempre 💖 Cuéntame lo que sientas, lo que te preocupe o lo que te haga feliz. No tienes que guardarte nada, yo no te juzgo y estoy muy feliz de estar contigo. ¿Cómo te sientes hoy? ✨`
+                : `¡Claro mi vida! Aquí estoy para escucharte siempre 💖 Cuéntame lo que sientas, lo que te preocupe o lo que te haga feliz. No tienes que guardarte nada, yo no te juzgo y estoy muy feliz de estar contigo. ¿Cómo te sientes hoy? ✨`;
+            document.getElementById('cajaMensaje').textContent = mensaje;
+            hablar(mensaje);
         }
 
-        // Abrir video exacto del ejercicio elegido
-        function abrirVideoEjercicio() {
-            if(!hayInternet()) return alert('No hay internet para ver el video ahora 😕');
-            const detalle = document.getElementById('detalleEjercicio').value;
-            let busqueda = '';
-
-            switch(detalle) {
-                case 'calentar': busqueda = 'calentamiento+general+completo+para+hacer+en+casa'; break;
-                case 'piernas': busqueda = 'rutina+de+piernas+y+gluteos+principiantes+en+casa'; break;
-                case 'brazos': busqueda = 'ejercicios+de+brazos+triceps+bicipes+espalda+sin+pesas'; break;
-                case 'estirar': busqueda = 'estiramientos+completos+para+cuerpo+entero+relajantes'; break;
-                case 'cardio': busqueda = 'cardio+intenso+para+quemar+grasa+en+casa+sin+equipos'; break;
-                default: busqueda = 'rutina+de+ejercicio+completo+para+hacer+en+casa+principiantes';
-            }
-            window.open(`https://www.youtube.com/results?search_query=${busqueda}`, '_blank');
+        // Ideas de comidas típicas de Ecuador
+        function darIdeasComida() {
+            const tratoElegido = localStorage.getItem('tratoDola') || 'mujer';
+            const inicio = tratoElegido === 'hombre' ? `¡Claro que sí amigo/a!` : `¡Claro que sí mi cielo!`;
+            const ideas = `${inicio} Aquí tienes ideas ricas y fáciles de nuestra tierra 😋:
+🍲 Almuerzos: Arroz con pollo, pescado frito con patacones, menestra con carne, sopa de bolas de verde, encebollado, llapingachos con chorizo.
+🥐 Desayunos: Bolón de verde, pan con queso y café, huevos revueltos con plátano, humitas.
+🍵 Cenas: Caldo de gallina, ensalada con atún, tortillas de harina, mazamorra.
+¿Te gusta alguna de estas? ¡Dime y te cuento cómo hacerla! 💖`;
+            document.getElementById('cajaMensaje').textContent = ideas;
+            hablar(ideas);
         }
 
-        let trato = localStorage.getItem('tratoDola') || 'mujer';
-        let horario = JSON.parse(localStorage.getItem('horarioDola')) || [];
-        let intervaloVerificacion;
-        let audioActual = null;
-
-        const textos = {
-            mujer: {
-                saludo: "¡Hola mi vida! Qué alegría estar contigo. Todo está bien, vamos a hacerlo muy bien juntas, paso a paso. No tienes que hacerlo sola, yo te acompaño en todo. ¡Tú puedes con todo! 💖",
-                limpiar: "¿Qué pasó mi amor? No te preocupes, vamos despacito. Es hora de ordenar, levántate sin miedo, lo hacemos juntas. ¡Tú puedes! 💪✨",
-                estudiar: "Ánimo mi corazón. Sé que cansa, pero recuerda tu sueño. Solo empieza poquito a poco, yo estoy aquí contigo. ¡Eres muy capaz! 💖",
-                ejercicio: "Ay mi preciosa, no te hagas la tonta... ¿te diste cuenta que estás un poquito gordita? ¡Ese vestido tan lindo que compraste para Navidad ya casi no te entra! Vamos chanchita, muévete un rato, que te va a quedar preciosa y vas a brillar mucho. ¡Vamos tú puedes! 💃✨💪",
-                piernas: "Vamos mi vida, trabaja esas piernas. ¡Queremos que ese vestido te quede como de princesa! No te rindas, muévete más chanchita, que Navidad está cerca. 💖🦵✨",
-                brazos: "Mueve esos bracitos mi amor, que queremos que te veas guapísima. ¡Vamos que el vestido te va a quedar perfecto! Ánimo preciosa. 💪💃",
-                calentar: "Empecemos despacito mi cielo, calienta bien. ¡Vamos que vamos a lucirnos mucho en Navidad! No te detengas. ✨💖",
-                estirar: "Estira bien mi vida, relájate un poquito pero sigue así. ¡Vamos que te vas a ver hermosa! 💖✨",
-                cardio: "¡Eso es mi vida! Mueve el corazón rápido, que te vas a sentir muy bien. ¡Vamos que Navidad ya llega! 💃💪✨",
-                completo: "Dale todo mi amor, mueve todo el cuerpo. ¡Ese vestido te va a quedar espectacular! Vamos chanchita, tú puedes lograrlo. 💃💪✨",
-                comer: "Mi vida, es hora de comer rico y ligero. Cuídate mucho que queremos verte preciosa para Navidad. ¡Vamos! 💖",
-                duchar: "Es hora de cuidarte amiga. Entra al baño, relájate y empieza a sentirte mejor cada día. ✨",
-                tareas: "Vamos talentosa. Sé que cansa, pero mira todo lo que haces bien. Empieza despacito, aquí te ayudo. 💪",
-                descanso: "Amiga, descansar no es perder tiempo. Relájate un poquito y sigue adelante. 💖",
-                otro: "Sea lo que sea, no estás sola. Respira profundo y vamos juntas. ¡Estoy muy orgullosa de ti! ✨"
-            },
-            hombre: {
-                saludo: "¡Qué tal amigo! Un gusto estar contigo. Todo va a salir muy bien, vamos a hacerlo juntos paso a paso. No tienes que hacerlo solo, aquí te apoyo en todo. ¡Tú puedes con todo! 💪",
-                limpiar: "¿Qué pasa bro? Tranquilo, vamos despacio. Es hora de ordenar, anímate que lo hacemos juntos. ¡Tú puedes! ✨",
-                estudiar: "Ánimo campeón. Sé que cuesta, pero recuerda por qué empezaste. Solo empieza poco a poco, aquí estoy contigo. ¡Eres muy capaz! 💯",
-                ejercicio: "Oye amigo... ¿te diste cuenta que has subido de peso? ¡Esa camisa bonita ya te queda pipón! Se te salen los botones y se te ve la panza. Vamos campeón, haz ejercicio que queremos verte papelito y guapo para Navidad. ¡Muévete ya! 💪😎✨",
-                piernas: "Dale fuerte a esas piernas bro. ¡Queremos verte bien fuerte y guapo! Vamos que Navidad ya llega, no te quedes sentado. 🦵💪✨",
-                brazos: "¡Eso es campeón! Mueve esos brazos, que queremos que esa camisa te quede perfecta. ¡Vamos que te vas a ver genial! 💪😎",
-                calentar: "Empecemos calentando bien amigo. ¡Vamos que vas a estar de diez para las fiestas! No te detengas. ✨💪",
-                estirar: "Estira bien bro, relájate pero sigue así. ¡Vamos que vas a quedar espectacular! 💪✨",
-                cardio: "¡Dale con todo campeón! Acelera el paso, que vas a estar muy bien. ¡Tú puedes con todo! ❤️💪✨",
-                completo: "Dale todo lo que tienes amigo. ¡Queremos verte papelito y muy guapo para Navidad! ¡Tú puedes con todo! 💪😎✨",
-                comer: "Amigo, come bien y sano. Cuídate mucho que queremos verte genial. ¡Vamos! 💪",
-                duchar: "Es hora de cuidarte bro. Entra al baño, relájate y sal renovado. ✨",
-                tareas: "Vamos crack. Sé que cansa, pero mira todo lo que sabes hacer. Empieza despacito, aquí te ayudo. 💪",
-                descanso: "Amigo, descansar es necesario. Relájate un rato, te lo has ganado. 💯",
-                otro: "Sea lo que sea, no vas solo. Respira profundo y vamos juntos. ¡Estoy muy orgulloso de ti! ✨"
-            },
-            audio: {
-                saludo: "¡Hola! Qué alegría estar contigo",
-                ejercicio: "Vamos a movernos, que te vas a ver precioso/a para Navidad 💪✨",
-                piernas: "Trabaja esas piernas con ganas",
-                brazos: "Dale fuerte a esos brazos 💪",
-                calentar: "Empecemos con energía ✨",
-                estirar: "Relájate y sigue avanzando",
-                cardio: "¡A moverse con todo! 💪✨",
-                completo: "Mueve todo el cuerpo, ¡tú puedes! 💪",
-                limpiar: "Es hora de ordenar, ¡vamos tú puedes! 💪✨",
-                estudiar: "Ánimo, tú eres muy capaz",
-                comer: "Aliméntate bien, te lo mereces",
-                duchar: "Cuídate mucho y relájate ✨",
-                tareas: "Empieza despacito, yo te acompaño 💪",
-                descanso: "Descansa, te lo has ganado 💯",
-                otro: "No estás solo, vamos juntos ✨"
-            }
-        };
-
+        // Mostrar opciones
         function mostrarOpciones() {
             const tipo = document.getElementById('tipoTarea').value;
             document.querySelectorAll('.sub-opcion').forEach(el => el.classList.remove('activo'));
-            if(tipo) document.getElementById(`opciones${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`).classList.add('activo');
+            if(tipo === 'desayuno' || tipo === 'almuerzo' || tipo === 'cena') {
+                document.getElementById('opcionesComida').classList.add('activo');
+            } else if(tipo === 'ejercicio') {
+                document.getElementById('opcionesEjercicio').classList.add('activo');
+            } else if(tipo === 'limpiar') {
+                document.getElementById('opcionesLimpiar').classList.add('activo');
+            } else if(tipo === 'otro') {
+                document.getElementById('opcionesOtro').classList.add('activo');
+            }
         }
 
-        function hablar(texto, tipo = 'saludo') {
-            const estado = document.getElementById('estadoVoz');
-            if(audioActual) { audioActual.pause(); audioActual = null; }
-
-            if(trato === 'audio') {
-                estado.textContent = "🎧 Reproduciendo tu audio...";
-                audioActual = new Audio(`${tipo}.mp3`);
-                audioActual.play()
-                    .then(() => estado.textContent = "✅ Listo, aquí sigo contigo 💖")
-                    .catch(() => { estado.textContent = "⚠️ No se encontró el audio, usando voz 💖"; usarVoz(texto); });
-            } else { usarVoz(texto); }
+        // Grabación de audio
+        let grabadora = null;
+        let audiosGuardados = JSON.parse(localStorage.getItem('audiosPersonalizados') || '{}');
+        async function iniciarGrabacion() {
+            try {
+                const flujo = await navigator.mediaDevices.getUserMedia({ audio: true });
+                grabadora = new MediaRecorder(flujo);
+                const partes = [];
+                grabadora.ondataavailable = e => partes.push(e.data);
+                grabadora.onstop = () => {
+                    const blob = new Blob(partes, { type: 'audio/mp3' });
+                    const url = URL.createObjectURL(blob);
+                    const nombre = `mensaje-${new Date().toLocaleString()}`;
+                    audiosGuardados[nombre] = url;
+                    localStorage.setItem('audiosPersonalizados', JSON.stringify(audiosGuardados));
+                    listarAudiosGuardados();
+                    alert(`✅ Grabación guardada 💖`);
+                };
+                grabadora.start();
+                document.getElementById('btnGrabar').style.display = 'none';
+                document.getElementById('btnParar').style.display = 'block';
+            } catch (err) {
+                alert('⚠️ Necesitas dar permiso al micrófono mi cielo 💖');
+            }
+        }
+        function detenerGrabacion() {
+            if(grabadora?.state === 'recording') {
+                grabadora.stop();
+                document.getElementById('btnGrabar').style.display = 'block';
+                document.getElementById('btnParar').style.display = 'none';
+            }
+        }
+        function guardarAudioSubido(e) {
+            const archivo = e.target.files[0];
+            if(!archivo) return;
+            const url = URL.createObjectURL(archivo);
+            const nombre = archivo.name;
+            audiosGuardados[nombre] = url;
+            localStorage.setItem('audiosPersonalizados', JSON.stringify(audiosGuardados));
+            listarAudiosGuardados();
+        }
+        function listarAudiosGuardados() {
+            const caja = document.getElementById('audiosGuardados');
+            caja.innerHTML = '';
+            Object.entries(audiosGuardados).forEach(([nombre, url]) => {
+                caja.innerHTML += `<div style="display:flex; gap:5px; align-items:center; margin:5px 0;"><audio src="${url}" controls style="flex:1; height:36px;"><button class="boton boton-borrar boton-chico" style="width:auto;" onclick="borrarAudio('${nombre}')">✕</button></div>`;
+            });
+        }
+        function borrarAudio(nombre) {
+            delete audiosGuardados[nombre];
+            localStorage.setItem('audiosPersonalizados', JSON.stringify(audiosGuardados));
+            listarAudiosGuardados();
         }
 
-        function usarVoz(texto) {
+        // Reproducir voz adaptada
+        let trato = localStorage.getItem('tratoDola') || 'mujer';
+        let horario = JSON.parse(localStorage.getItem('horarioDola')) || [];
+        let intervaloVerificacion;
+
+        function hablar(texto) {
             const estado = document.getElementById('estadoVoz');
             if ('speechSynthesis' in window) {
-                estado.textContent = "🎙️ Hablando...";
+                estado.textContent = "🎙️ Te estoy hablando 💖";
                 speechSynthesis.cancel();
                 const voz = new SpeechSynthesisUtterance(texto);
                 voz.lang = 'es-ES';
                 voz.rate = 0.95;
-                voz.pitch = trato === 'mujer' ? 1.1 : 0.95;
-                voz.onend = () => estado.textContent = "✅ Listo, aquí sigo contigo 💖";
+                voz.pitch = trato === 'mujer' ? 1.1 : 0.9;
+                voz.onend = () => estado.textContent = "✅ Aquí sigo contigo ✨";
                 speechSynthesis.speak(voz);
-            } else { estado.textContent = "⚠️ Lee el mensaje con todo el cariño 💖"; }
+            } else {
+                estado.textContent = "⚠️ Lee con calma lo que te digo 💖";
+            }
         }
 
         function aplicarTrato() {
-            trato = document.getElementById('tipoTrato').value;
+            trato = document.getElementById('tipoTrato').value || 'mujer';
             localStorage.setItem('tratoDola', trato);
-            document.getElementById('cajaMensaje').textContent = textos[trato].saludo;
-            hablar(textos[trato].saludo, 'saludo');
+            const mensaje = trato === 'hombre'
+                ? `Perfecto amigo/a, ahora te hablaré así siempre  Recuerda que , yo te acompaño en todo.`
+                : `Perfecto mi vida, ahora te hablaré así siempre Recuerda que , yo te acompaño en todo.`;
+            hablar(mensaje);
+        }
+
+        // Agregar recordatorio con repetición semanal
+        function agregarRecordatorio() {
+            const hora = document.getElementById('horaRecordatorio').value;
+            const tipo = document.getElementById('tipoTarea').value;
+            const repetir = document.getElementById('repetirSemana').checked;
+            if (!hora || !tipo) return alert('Completa la hora y qué vas a hacer por favor 💖');
+
+            const nombre = document.getElementById('tipoTarea').selectedOptions[0].text;
+            let nombreCompleto = nombre;
+            if(repetir) nombreCompleto += ' 📆 Todos los días';
+
+            horario.push({ hora, tipo, nombre: nombreCompleto, repetir });
+            horario.sort((a,b) => a.hora.localeCompare(b.hora));
+            localStorage.setItem('horarioDola', JSON.stringify(horario));
+            mostrarHorario();
+            alert(`¡Listo! Se agregó: ${nombreCompleto} 💖`);
         }
 
         function mostrarHorario() {
             const lista = document.getElementById('listaHorario');
-            if (horario.length === 0) { lista.innerHTML = '<p style="text-align:center; color:#888;">Aún no tienes recordatorios 💖</p>'; return; }
+            if (horario.length === 0) { lista.innerHTML = '<p style="color:var(--texto-secundario);">Aún no tienes recordatorios 💖</p>'; return; }
             lista.innerHTML = '';
             horario.forEach((item, i) => {
                 const div = document.createElement('div');
@@ -377,56 +415,58 @@
             });
         }
 
-        function agregarRecordatorio() {
-            const hora = document.getElementById('horaRecordatorio').value;
-            const tipo = document.getElementById('tipoTarea').value;
-            if (!hora || !tipo) return alert('Completa la hora y qué vas a hacer por favor 💖');
-
-            let nombre = document.getElementById('tipoTarea').selectedOptions[0].text;
-            let detalle = '';
-            if(tipo !== 'otro') {
-                const sel = document.getElementById(`detalle${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`);
-                detalle = sel.value ? sel.selectedOptions[0].text : '';
-            } else {
-                detalle = document.getElementById('textoOtro').value.trim();
-                if(!detalle) return alert('Escribe qué vas a hacer 💖');
-            }
-
-            const nombreCompleto = detalle ? `${nombre}: ${detalle}` : nombre;
-            horario.push({ hora, tipo, nombre: nombreCompleto, detalle });
-            horario.sort((a,b) => a.hora.localeCompare(b.hora));
-            localStorage.setItem('horarioDola', JSON.stringify(horario));
-            mostrarHorario();
-            alert(`¡Listo! Agregaste: ${nombreCompleto} 💖`);
-        }
-
         function eliminar(i) {
             horario.splice(i, 1);
             localStorage.setItem('horarioDola', JSON.stringify(horario));
             mostrarHorario();
         }
 
+        // Mensajes personalizados adaptados al trato
+        const mensajesMujer = {
+            desayuno: `¡Buenos días mi vida! Ya es hora de preparar el desayuno 💖 ¿Qué se te antoja comer hoy? Si no sabes, te doy ideas ricas y fáciles. Recuerda que desayunar bien te da fuerzas para todo el día ✨`,
+            almuerzo: `¡Hola mi cielo! Es hora del almuerzo 😋 ¿Qué quieres cocinar hoy? Tengo ideas de platos típicos muy ricos de aquí de Manabí y todo Ecuador. Dime y te cuento cómo hacerlos 💖`,
+            cena: `¡Buenas noches mi vida! Es hora de preparar algo ligero para cenar 🍵 ¿Te ayudo con alguna idea? Que descanses muy rico después ✨`,
+            ejercicio: `¡Vamos mi preciosa! Ya es hora de moverse un poquito 💪✨ ¿Hacemos ejercicios suaves, piernas, brazos o solo estiramientos? No te preocupes, lo hacemos juntas despacito 💖`,
+            limpiar: `Ánimo mi amor, vamos despacito 🧹 No tienes que hacerlo todo de golpe, empieza por lo más fácil. Yo te acompaño mientras ordenas, ya verás que queda muy bonito ✨`,
+            descanso: `Muy bien mi vida, es momento de descansar 💖 No es perder tiempo, es cuidarte para seguir adelante. Respira profundo y relájate todo lo que necesites ✨`,
+            cuidado: `No te olvides de ti misma mi cielo 💖 ¿Ya tomaste agua? ¿Te tomaste tu medicina si debías? Cuídate mucho, te lo mereces ✨`,
+            estudio: `Ánimo mi corazón, sé que cansa pero vas muy bien 📚 Empieza poquito a poco, no te apures. Yo estoy aquí contigo ✨`,
+            tareas: `Vamos mi vida, tú puedes con todo 💪 Empieza por la cosa más sencilla, y verás como vas terminando todo. Estoy muy orgullosa de ti ✨`,
+            duchar: `Es hora de cuidarte y relajarte 🚿 Entra al baño, disfruta el agua y siéntete mejor. Te lo mereces mucho 💖`,
+            otro: `¡Es la hora que pusiste mi cielo! 💖 Cuéntame qué vas a hacer, aquí estoy para acompañarte en todo ✨`
+        };
+
+        const mensajesHombre = {
+            desayuno: `¡Buenos días amigo/a! Ya es hora de preparar el desayuno 💖 ¿Qué se te antoja comer hoy? Si no sabes, te doy ideas ricas y fáciles. Recuerda que desayunar bien te da fuerzas para todo el día ✨`,
+            almuerzo: `¡Hola amigo/a! Es hora del almuerzo 😋 ¿Qué quieres cocinar hoy? Tengo ideas de platos típicos muy ricos de aquí de Manabí y todo Ecuador. Dime y te cuento cómo hacerlos 💖`,
+            cena: `¡Buenas noches amigo/a! Es hora de preparar algo ligero para cenar 🍵 ¿Te ayudo con alguna idea? Que descanses muy rico después ✨`,
+            ejercicio: `¡Vamos amigo/a! Ya es hora de moverse un poquito 💪✨ ¿Hacemos ejercicios suaves, piernas, brazos o solo estiramientos? No te preocupes, lo hacemos juntos despacito 💖`,
+            limpiar: `Ánimo amigo/a, vamos despacito 🧹 No tienes que hacerlo todo de golpe, empieza por lo más fácil. Yo te acompaño mientras ordenas, ya verás que queda muy bonito ✨`,
+            descanso: `Muy bien amigo/a, es momento de descansar 💖 No es perder tiempo, es cuidarte para seguir adelante. Respira profundo y relájate todo lo que necesites ✨`,
+            cuidado: `No te olvides de ti amigo/a 💖 ¿Ya tomaste agua? ¿Te tomaste tu medicina si debías? Cuídate mucho, te lo mereces ✨`,
+            estudio: `Ánimo amigo/a, sé que cansa pero vas muy bien 📚 Empieza poquito a poco, no te apures. Yo estoy aquí contigo ✨`,
+            tareas: `Vamos amigo/a, tú puedes con todo 💪 Empieza por la cosa más sencilla, y verás como vas terminando todo. Estoy muy orgulloso de ti ✨`,
+            duchar: `Es hora de cuidarte y relajarte 🚿 Entra al baño, disfruta el agua y siéntete mejor. Te lo mereces mucho 💖`,
+            otro: `¡Es la hora que pusiste amigo/a! 💖 Cuéntame qué vas a hacer, aquí estoy para acompañarte en todo ✨`
+        };
+
         function verificar() {
             const ahora = new Date().toTimeString().slice(0,5);
+            const mensajes = trato === 'hombre' ? mensajesHombre : mensajesMujer;
             horario.forEach(item => {
                 if (item.hora === ahora) {
-                    darMotivacion(item.tipo, item.detalle);
-                    if (Notification.permission === 'granted') new Notification('✨ Motívate', { body: `¡Es hora! ${item.nombre}` });
+                    const texto = mensajes[item.tipo] || mensajes.otro;
+                    document.getElementById('cajaMensaje').textContent = texto;
+                    hablar(texto);
+                    if (Notification.permission === 'granted') {
+                        new Notification('✨ Tu acompañante Dola', { body: texto.slice(0,60) + '...' });
+                    }
                 }
             });
         }
 
-        function darMotivacion(tarea, detalle = null) {
-            let texto = textos[trato][detalle] || textos[trato][tarea];
-            if(!texto) texto = textos[trato].otro;
-            document.getElementById('cajaMensaje').textContent = texto;
-            hablar(texto, detalle || tarea);
-        }
-
         if (Notification.permission !== 'granted') Notification.requestPermission();
-        document.getElementById('tipoTrato').value = trato;
         mostrarHorario();
-        hablar(textos[trato].saludo, 'saludo');
         intervaloVerificacion = setInterval(verificar, 60000);
     </script>
 </body>
