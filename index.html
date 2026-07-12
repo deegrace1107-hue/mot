@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Motívate con Dola ✨</title>
+    <title>✨ Motívate✨</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="icono-192.png">
     <meta name="theme-color" content="#ff9800">
@@ -53,7 +53,7 @@
 </head>
 <body>
     <div class="contenedor">
-        <h1>✨ Motívate con Dola ✨</h1>
+        <h1>✨ Motívate✨</h1>
         <div class="mensaje" id="cajaMensaje">
             ¡Hola! 🥰 Elige cómo quieres que te acompañe, y empecemos 💖
         </div>
@@ -74,8 +74,8 @@
         <div class="seccion">
             <h3>🎙️ ¿Cómo prefieres que te hable?</h3>
             <select id="tipoTrato">
-                <option value="mujer">👩‍❤️‍👩 Como amiga: mi amor, vamos juntas</option>
-                <option value="hombre">👨‍❤️‍👨 Como amigo: bro, vamos juntos</option>
+                <option value="mujer">👩‍❤️‍👩 amiga: mi amor, vamos juntas</option>
+                <option value="hombre">👨‍❤️‍👨 amigo: vamos juntos</option>
                 <option value="audio">🎧 Con mis audios grabados</option>
             </select>
             <button class="boton confirmar" onclick="aplicarTrato()">✅ Elegir y empezar</button>
@@ -307,17 +307,17 @@
                 otro: "Sea lo que sea, no vas solo. Respira profundo y vamos juntos. ¡Estoy muy orgulloso de ti! ✨"
             },
             audio: {
-                saludo: "¡Hola! Qué alegría estar contigo 💖",
+                saludo: "¡Hola! Qué alegría estar contigo",
                 ejercicio: "Vamos a movernos, que te vas a ver precioso/a para Navidad 💪✨",
-                piernas: "Trabaja esas piernas con ganas 💖",
+                piernas: "Trabaja esas piernas con ganas",
                 brazos: "Dale fuerte a esos brazos 💪",
                 calentar: "Empecemos con energía ✨",
-                estirar: "Relájate y sigue avanzando 💖",
+                estirar: "Relájate y sigue avanzando",
                 cardio: "¡A moverse con todo! 💪✨",
                 completo: "Mueve todo el cuerpo, ¡tú puedes! 💪",
                 limpiar: "Es hora de ordenar, ¡vamos tú puedes! 💪✨",
-                estudiar: "Ánimo, tú eres muy capaz 💖",
-                comer: "Aliméntate bien, te lo mereces 💖",
+                estudiar: "Ánimo, tú eres muy capaz",
+                comer: "Aliméntate bien, te lo mereces",
                 duchar: "Cuídate mucho y relájate ✨",
                 tareas: "Empieza despacito, yo te acompaño 💪",
                 descanso: "Descansa, te lo has ganado 💯",
@@ -411,7 +411,7 @@
             horario.forEach(item => {
                 if (item.hora === ahora) {
                     darMotivacion(item.tipo, item.detalle);
-                    if (Notification.permission === 'granted') new Notification('✨ Motívate con Dola', { body: `¡Es hora! ${item.nombre}` });
+                    if (Notification.permission === 'granted') new Notification('✨ Motívate', { body: `¡Es hora! ${item.nombre}` });
                 }
             });
         }
