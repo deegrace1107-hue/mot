@@ -1,11 +1,11 @@
 {
-    "name": "App Dola - Motivación",
-    "short_name": "App Dola",
-    "description": "Mensajes llenos de cariño y luz para ti",
-    "start_url": "./index_dola.html",
+    "name": "Motívate ",
+    "short_name": "Motívate",
+    "description": "Te acompaño ",
+    "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#fff8e1",
-    "theme_color": "#ffb74d",
+    "background_color": "#121212",
+    "theme_color": "#ff9800",
     "icons": [
         {
             "src": "icono_dola.png",
