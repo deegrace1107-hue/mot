@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💛 App Dola - Motivación y Bienestar</title>
+    <link rel="manifest" href="manifest_dola.json">
+    <meta name="theme-color" content="#ffb74d">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: linear-gradient(135deg, #fff8e1, #ffecb3); min-height: 100vh; padding: 15px; }
+        .container { max-width: 450px; margin: 0 auto; background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #e65100; font-size: 24px; margin-bottom: 10px; }
+        .subtitulo { text-align: center; color: #795548; font-size: 14px; margin-bottom: 25px; }
+        .mensaje-dia { background: #fff3e0; border-left: 5px solid #ff9800; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
+        .mensaje-dia h2 { color: #e65100; font-size: 18px; margin-bottom: 8px; }
+        .mensaje-dia p { font-size: 16px; color: #5d4037; line-height: 1.5; }
+        .boton-voz { width: 100%; padding: 14px; background: #ff9800; color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 20px; transition: all 0.3s; }
+        .boton-voz:hover { background: #fb8c00; transform: translateY(-2px); }
+        .boton-voz:active { transform: translateY(0); }
+        .seccion { margin-bottom: 20px; padding: 15px; background: #f1f8e9; border-radius: 12px; border: 1px solid #c5e1a5; }
+        .seccion h3 { color: #558b2f; font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .opcion { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; padding: 8px; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+        .opcion:hover { background: rgba(255,152,0,0.1); }
+        .opcion input[type="radio"] { width: 18px; height: 18px; cursor: pointer; }
+        .opcion label { font-size: 15px; color: #5d4037; cursor: pointer; flex: 1; }
+        .recordatorio { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+        .recordatorio input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; }
+        .recordatorio button { padding: 10px 15px; background: #558b2f; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .estado { text-align: center; font-size: 13px; margin-top: 10px; color: #558b2f; padding: 6px; border-radius: 6px; }
+        .corazon { animation: latido 1.5s infinite; display: inline-block; }
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        @media (max-width: 400px) {
+            .container { padding: 15px; }
+            h1 { font-size: 20px; }
+            .mensaje-dia p { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>💛 App Dola</h1>
+    <p class="subtitulo">Mensajes llenos de cariño y luz ✨</p>
+
+    <div class="mensaje-dia">
+        <h2>✨ Mensaje para ti hoy</h2>
+        <p id="textoMensaje">Cargando tu mensaje especial...</p>
+    </div>
+
+    <button class="boton-voz" id="btnVoz">🔊 Escuchar el mensaje</button>
+
+    <div class="seccion">
+        <h3>👤 ¿Cómo quieres que te llame?</h3>
+        <div class="opcion">
+            <input type="radio" name="genero" id="opcionMujer" value="mujer" checked>
+            <label for="opcionMujer">Con cariño de mujer (mi vida, mi cielo, preciosa)</label>
+        </div>
+        <div class="opcion">
+            <input type="radio" name="genero" id="opcionHombre" value="hombre">
+            <label for="opcionHombre">Con cariño de hombre (mi vida, mi cielo, precioso)</label>
+        </div>
+    </div>
+
+    <div class="seccion">
+        <h3>⏰ Recordatorios</h3>
+        <p style="font-size:13px; color:#666; margin-bottom:8px;">Pon la hora para recibir tu saludo especial:</p>
+        <div class="recordatorio">
+            <input type="time" id="horaRecordatorio">
+            <button onclick="guardarRecordatorio()">Guardar</button>
+        </div>
+        <div class="estado" id="estadoRecordatorio">Sin recordatorio guardado aún</div>
+    </div>
+</div>
+
+<script>
+// 💛 MENSAJES ESPECIALES CON TODO EL CARIÑO
+const mensajesMujer = [
+    "¡Buen día mi vida preciosa! Eres fuerte, valiente y capaz de todo lo que te propongas. ¡Te quiero muchísimo! 💛",
+    "Mi cielo, recuerda que no estás sola, yo siempre estoy contigo en cada paso que das. ¡Tú puedes con todo! ✨",
+    "Preciosa tuya, sonríe mucho hoy, porque tu alegría ilumina todo a tu alrededor. Eres maravillosa 💖",
+    "Mi vida, los días difíciles pasan, y tú sigues brillando más que nunca. Estoy muy orgullosa de ti 💪",
+    "Mi cielo, cuídate mucho, te mereces todo lo bonito que hay en el mundo. Te mando un abrazo gigante 😘",
+    "Preciosa, confía en ti misma, tienes todo lo necesario para lograr tus sueños. ¡Vas muy bien! 💛"
+];
+
+const mensajesHombre = [
+    "¡Buen día mi vida precioso! Eres fuerte, valiente y capaz de todo lo que te propongas. ¡Te quiero muchísimo! 💛",
+    "Mi cielo, recuerda que no estás solo, yo siempre estoy contigo en cada paso que das. ¡Tú puedes con todo! ✨",
+    "Precioso tuyo, sonríe mucho hoy, porque tu alegría ilumina todo a tu alrededor. Eres maravilloso 💖",
+    "Mi vida, los días difíciles pasan, y tú sigues brillando más que nunca. Estoy muy orgullosa de ti 💪",
+    "Mi cielo, cuídate mucho, te mereces todo lo bonito que hay en el mundo. Te mando un abrazo gigante 😘",
+    "Precioso, confía en ti mismo, tienes todo lo necesario para lograr tus sueños. ¡Vas muy bien! 💛"
+];
+
+let generoElegido = localStorage.getItem('generoAppDola') || 'mujer';
+let mensajeActual = '';
+
+// CARGAR DATOS AL INICIO
+document.addEventListener('DOMContentLoaded', () => {
+    // Marcar opción guardada
+    document.getElementById(`opcion${generoElegido.charAt(0).toUpperCase() + generoElegido.slice(1)}`).checked = true;
+    
+    // Cargar mensaje
+    cargarMensaje();
+    
+    // Cargar recordatorio guardado
+    const horaGuardada = localStorage.getItem('horaRecordatorioDola');
+    if(horaGuardada) {
+        document.getElementById('horaRecordatorio').value = horaGuardada;
+        document.getElementById('estadoRecordatorio').textContent = `✅ Recordatorio activo a las ${horaGuardada}`;
+    }
+
+    // Cambiar mensajes al cambiar opción
+    document.querySelectorAll('input[name="genero"]').forEach(opt => {
+        opt.addEventListener('change', (e) => {
+            generoElegido = e.target.value;
+            localStorage.setItem('generoAppDola', generoElegido);
+            cargarMensaje();
+        });
+    });
+});
+
+// FUNCIÓN PARA CARGAR MENSAJE DEL DÍA
+function cargarMensaje() {
+    const hoy = new Date().toLocaleDateString('es-EC');
+    const ultimoDia = localStorage.getItem('ultimoDiaMensaje');
+    const ultimoMensaje = localStorage.getItem('ultimoMensaje');
+    
+    const lista = generoElegido === 'mujer' ? mensajesMujer : mensajesHombre;
+    
+    if(hoy === ultimoDia && ultimoMensaje) {
+        mensajeActual = ultimoMensaje;
+    } else {
+        // Elegir mensaje aleatorio que no se repita seguido
+        do {
+            mensajeActual = lista[Math.floor(Math.random() * lista.length)];
+        } while(mensajeActual === ultimoMensaje && lista.length > 1);
+        
+        localStorage.setItem('ultimoDiaMensaje', hoy);
+        localStorage.setItem('ultimoMensaje', mensajeActual);
+    }
+    
+    document.getElementById('textoMensaje').textContent = mensajeActual;
+}
+
+// FUNCIÓN PARA LEER EN VOZ ALTA
+document.getElementById('btnVoz').addEventListener('click', () => {
+    if(!'speechSynthesis' in window) return alert('Tu dispositivo no puede leer en voz alta 😔');
+    
+    const voz = new SpeechSynthesisUtterance(mensajeActual);
+    voz.lang = 'es-ES';
+    voz.rate = 0.95; // Velocidad suave y cariñosa
+    voz.pitch = 1.05; // Tono agradable
+    
+    speechSynthesis.speak(voz);
+});
+
+// FUNCIÓN PARA GUARDAR RECORDATORIO
+function guardarRecordatorio() {
+    const hora = document.getElementById('horaRecordatorio').value;
+    if(!hora) return alert('Escribe una hora por favor mi cielo');
+    
+    localStorage.setItem('horaRecordatorioDola', hora);
+    document.getElementById('estadoRecordatorio').innerHTML = `✅ Recordatorio guardado para las ${hora} <span class="corazon">💛</span>`;
+    alert(`¡Listo! Te enviaré un saludo especial cada día a las ${hora} ✨`);
+}
+</script>
+</body>
+</html>
