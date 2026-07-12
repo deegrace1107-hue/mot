@@ -5,35 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>✨ Motívate con Dola ✨</title>
     <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="icono-192.png">
     <meta name="theme-color" content="#ff9800">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Dola Motívate">
+    
     <style>
+        :root {
+            --color-principal: #ff9800;
+            --color-principal-claro: #ffb74d;
+            --color-principal-clarito: #ffcc80;
+        }
         * { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; box-sizing: border-box; }
         body { background: linear-gradient(135deg, #121212, #1e1e1e); min-height: 100vh; padding: 20px; text-align: center; color: #f5f5f5; }
         .contenedor { max-width: 450px; margin: 0 auto; }
-        h1 { color: #ff9800; font-size: 28px; margin-bottom: 20px; }
-        .mensaje { background: #1a1a1a; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(255,152,0,0.2); margin-bottom: 20px; font-size: 19px; color: #f0f0f0; line-height: 1.6; border: 1px solid #333; }
-        .seccion { background: rgba(255,152,0,0.05); padding: 18px; border-radius: 15px; margin-bottom: 15px; text-align: left; border: 1px solid #333; }
-        .seccion h3 { color: #ffb74d; margin-bottom: 12px; text-align: center; }
-        input, select { width: 100%; padding: 10px; margin: 6px 0; border: 2px solid #ff9800; border-radius: 10px; font-size: 15px; background: #222; color: #fff; }
+        h1 { color: var(--color-principal); font-size: 28px; margin-bottom: 20px; }
+        .mensaje { background: #1a1a1a; padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px color-mix(in srgb, var(--color-principal) 20%, transparent); margin-bottom: 20px; font-size: 19px; color: #f0f0f0; line-height: 1.6; border: 1px solid #333; }
+        .aviso { font-size: 14px; margin: 10px 0; padding: 8px; border-radius: 10px; background: rgba(255,152,0,0.1); color: var(--color-principal-clarito); }
+        .seccion { background: color-mix(in srgb, var(--color-principal) 5%, transparent); padding: 18px; border-radius: 15px; margin-bottom: 15px; text-align: left; border: 1px solid #333; }
+        .seccion h3 { color: var(--color-principal-claro); margin-bottom: 12px; text-align: center; }
+        input, select { width: 100%; padding: 10px; margin: 6px 0; border: 2px solid var(--color-principal); border-radius: 10px; font-size: 15px; background: #222; color: #fff; }
         .input-texto { margin-top:8px; display:none; }
         .input-texto.activo { display:block; }
         .boton { width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 15px; font-size: 17px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
         .boton:hover { transform: translateY(-2px); }
-        .agregar { background: #ff9800; color: #121212; }
-        .confirmar { background: #ffb74d; color: #121212; }
-        .limpiar { background: #ffcc80; color: #121212; }
-        .estudiar { background: #ff9800; color: #121212; }
-        .ejercicio { background: #ffb74d; color: #121212; }
-        .comer { background: #ffcc80; color: #121212; }
-        .duchar { background: #ff9800; color: #121212; }
-        .tareas { background: #ffb74d; color: #121212; }
-        .descanso { background: #ffcc80; color: #121212; }
-        .personalizado { background: #333; color: #ff9800; border: 1px solid #ff9800; }
-        .horario-item { background: #1a1a1a; padding: 12px; border-radius: 10px; margin: 8px 0; border-left: 4px solid #ff9800; display: flex; justify-content: space-between; align-items: center; }
+        .boton-musica { background: #ff4081; color: white; margin-bottom: 5px; }
+        .boton-video { background: #f44336; color: white; margin-bottom: 5px; }
+        .agregar { background: var(--color-principal); color: #121212; }
+        .confirmar { background: var(--color-principal-claro); color: #121212; }
+        .personalizado { background: #333; color: var(--color-principal); border: 1px solid var(--color-principal); }
+        .horario-item { background: #1a1a1a; padding: 12px; border-radius: 10px; margin: 8px 0; border-left: 4px solid var(--color-principal); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
         .btn-eliminar { background: #ff5252; border: none; padding: 6px 10px; border-radius: 8px; cursor: pointer; color: white; font-weight: bold; }
-        .estado { margin-top: 15px; font-size: 15px; color: #ffcc80; font-weight: bold; }
-        .sub-opcion { margin-top:10px; padding:10px; background:rgba(255,152,0,0.08); border-radius:8px; display:none; }
+        .estado { margin-top: 15px; font-size: 15px; color: var(--color-principal-clarito); font-weight: bold; }
+        .sub-opcion { margin-top:10px; padding:10px; background: color-mix(in srgb, var(--color-principal) 8%, transparent); border-radius:8px; display:none; }
         .sub-opcion.activo { display:block; }
+        .opciones-colores { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+        .boton-color { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: all 0.2s; }
+        .boton-color.activo { border-color: #fff; transform: scale(1.1); }
+        .boton-color.rosa { background: #e91e63; }
+        .boton-color.naranja { background: #ff9800; }
+        .boton-color.azul { background: #2196f3; }
+        .boton-color.morado { background: #9c27b0; }
+        .boton-color.verde { background: #4caf50; }
+        .boton-color.rojo { background: #f44336; }
     </style>
 </head>
 <body>
@@ -41,6 +56,19 @@
         <h1>✨ Motívate con Dola ✨</h1>
         <div class="mensaje" id="cajaMensaje">
             ¡Hola! 🥰 Elige cómo quieres que te acompañe, y empecemos 💖
+        </div>
+        <div class="aviso" id="avisoInternet"></div>
+
+        <div class="seccion">
+            <h3>🎨 Elige tu color favorito</h3>
+            <div class="opciones-colores">
+                <button class="boton-color rosa" title="Rosa fresa" onclick="cambiarColor('rosa', '#e91e63', '#f48fb1', '#f8bbd0')"></button>
+                <button class="boton-color naranja activo" title="Naranja" onclick="cambiarColor('naranja', '#ff9800', '#ffb74d', '#ffcc80')"></button>
+                <button class="boton-color azul" title="Azul" onclick="cambiarColor('azul', '#2196f3', '#64b5f6', '#90caf9')"></button>
+                <button class="boton-color morado" title="Morado" onclick="cambiarColor('morado', '#9c27b0', '#ba68c8', '#ce93d8')"></button>
+                <button class="boton-color verde" title="Verde" onclick="cambiarColor('verde', '#4caf50', '#81c784', '#a5d6a7')"></button>
+                <button class="boton-color rojo" title="Rojo" onclick="cambiarColor('rojo', '#f44336', '#e57373', '#ef9a9a')"></button>
+            </div>
         </div>
 
         <div class="seccion">
@@ -79,6 +107,7 @@
                     <option value="ropa">👕 Lavar/ordenar ropa</option>
                     <option value="jardin">🌿 Patio o jardín</option>
                 </select>
+                <button class="boton boton-musica" onclick="abrirMusica()">🎵 Poner música para limpiar</button>
             </div>
 
             <div class="sub-opcion" id="opcionesEstudiar">
@@ -96,12 +125,14 @@
             <div class="sub-opcion" id="opcionesEjercicio">
                 <select id="detalleEjercicio">
                     <option value="">¿Qué tipo de ejercicio?</option>
-                    <option value="calentar">🔥 Calentamiento</option>
+                    <option value="calentar">🔥 Calentamiento general</option>
                     <option value="piernas">🦵 Piernas y glúteos</option>
-                    <option value="brazos">💪 Brazos y espalda</option>
-                    <option value="estirar">🧘 Estiramiento</option>
+                    <option value="brazos">💪 Brazos, bíceps y espalda</option>
+                    <option value="estirar">🧘 Estiramiento completo</option>
+                    <option value="cardio">❤️ Cardio y moverse rápido</option>
                     <option value="completo">🏃 Rutina completa</option>
                 </select>
+                <button class="boton boton-video" onclick="abrirVideoEjercicio()">▶️ Ver video de la rutina</button>
             </div>
 
             <div class="sub-opcion" id="opcionesComer">
@@ -111,9 +142,10 @@
                     <option value="almuerzo">🍲 Almuerzo</option>
                     <option value="merienda">🍎 Merienda</option>
                     <option value="cena">🍵 Cena</option>
-                    <option value="preparar">🥗 Preparar comida</option>
+                    <option value="preparar">🥗 Preparar comida / Cocinar</option>
                     <option value="fruta">🍊 Comer frutas/verduras</option>
                 </select>
+                <button class="boton boton-musica" onclick="abrirMusica()">🎵 Poner música para cocinar</button>
             </div>
 
             <div class="sub-opcion" id="opcionesDuchar">
@@ -162,22 +194,83 @@
             </div>
         </div>
 
-        <h3 style="color:#ffb74d; margin:15px 0;">⚡ Empujoncito rápido</h3>
-        <button class="boton limpiar" onclick="darMotivacion('limpiar')">🧺 Ordenar / Limpiar</button>
-        <button class="boton estudiar" onclick="darMotivacion('estudiar')">📚 Estudiar / Repasar</button>
-        <button class="boton ejercicio" onclick="darMotivacion('ejercicio')">🏃 Hacer ejercicio</button>
-        <button class="boton personalizado" onclick="darMotivacion('otro')">💬 Otra cosa</button>
-
         <div class="estado" id="estadoVoz"></div>
     </div>
 
     <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('App lista para usar sin internet'))
+                    .catch(err => console.log('Error al preparar la app:', err));
+            });
+        }
+
+        // Verificar si hay internet
+        function hayInternet() {
+            const aviso = document.getElementById('avisoInternet');
+            const conectado = navigator.onLine;
+            aviso.textContent = conectado ? '✅ Conectado: puedes usar música y videos' : '⚠️ Sin internet: música y videos no estarán disponibles ahora';
+            aviso.style.display = 'block';
+            setTimeout(() => aviso.style.display = 'none', 5000);
+            return conectado;
+        }
+        window.addEventListener('online', hayInternet);
+        window.addEventListener('offline', hayInternet);
+        hayInternet();
+
+        // Función para cambiar y guardar el color
+        function cambiarColor(nombre, color, claro, clarito) {
+            document.documentElement.style.setProperty('--color-principal', color);
+            document.documentElement.style.setProperty('--color-principal-claro', claro);
+            document.documentElement.style.setProperty('--color-principal-clarito', clarito);
+            document.querySelector('meta[name="theme-color"]').content = color;
+            
+            document.querySelectorAll('.boton-color').forEach(b => b.classList.remove('activo'));
+            document.querySelector(`.boton-color.${nombre}`).classList.add('activo');
+            
+            localStorage.setItem('colorApp', JSON.stringify({nombre, color, claro, clarito}));
+        }
+
+        // Cargar el color guardado al abrir la app
+        function cargarColorGuardado() {
+            const guardado = localStorage.getItem('colorApp');
+            if(guardado) {
+                const {nombre, color, claro, clarito} = JSON.parse(guardado);
+                cambiarColor(nombre, color, claro, clarito);
+            }
+        }
+        cargarColorGuardado();
+
+        // Abrir música para limpiar o cocinar
+        function abrirMusica() {
+            if(!hayInternet()) return alert('No hay internet para poner música ahora 😕');
+            // Música alegre y animada ideal para limpiar/cocinar
+            window.open('https://www.youtube.com/results?search_query=m%C3%BAsica+alegre+para+limpiar+y+cocinar+animada', '_blank');
+        }
+
+        // Abrir video exacto del ejercicio elegido
+        function abrirVideoEjercicio() {
+            if(!hayInternet()) return alert('No hay internet para ver el video ahora 😕');
+            const detalle = document.getElementById('detalleEjercicio').value;
+            let busqueda = '';
+
+            switch(detalle) {
+                case 'calentar': busqueda = 'calentamiento+general+completo+para+hacer+en+casa'; break;
+                case 'piernas': busqueda = 'rutina+de+piernas+y+gluteos+principiantes+en+casa'; break;
+                case 'brazos': busqueda = 'ejercicios+de+brazos+triceps+bicipes+espalda+sin+pesas'; break;
+                case 'estirar': busqueda = 'estiramientos+completos+para+cuerpo+entero+relajantes'; break;
+                case 'cardio': busqueda = 'cardio+intenso+para+quemar+grasa+en+casa+sin+equipos'; break;
+                default: busqueda = 'rutina+de+ejercicio+completo+para+hacer+en+casa+principiantes';
+            }
+            window.open(`https://www.youtube.com/results?search_query=${busqueda}`, '_blank');
+        }
+
         let trato = localStorage.getItem('tratoDola') || 'mujer';
         let horario = JSON.parse(localStorage.getItem('horarioDola')) || [];
         let intervaloVerificacion;
         let audioActual = null;
 
-        // MENSAJES CON LOS NUEVOS MENSAJITOS DE EJERCICIO 🥰
         const textos = {
             mujer: {
                 saludo: "¡Hola mi vida! Qué alegría estar contigo. Todo está bien, vamos a hacerlo muy bien juntas, paso a paso. No tienes que hacerlo sola, yo te acompaño en todo. ¡Tú puedes con todo! 💖",
@@ -188,6 +281,7 @@
                 brazos: "Mueve esos bracitos mi amor, que queremos que te veas guapísima. ¡Vamos que el vestido te va a quedar perfecto! Ánimo preciosa. 💪💃",
                 calentar: "Empecemos despacito mi cielo, calienta bien. ¡Vamos que vamos a lucirnos mucho en Navidad! No te detengas. ✨💖",
                 estirar: "Estira bien mi vida, relájate un poquito pero sigue así. ¡Vamos que te vas a ver hermosa! 💖✨",
+                cardio: "¡Eso es mi vida! Mueve el corazón rápido, que te vas a sentir muy bien. ¡Vamos que Navidad ya llega! 💃💪✨",
                 completo: "Dale todo mi amor, mueve todo el cuerpo. ¡Ese vestido te va a quedar espectacular! Vamos chanchita, tú puedes lograrlo. 💃💪✨",
                 comer: "Mi vida, es hora de comer rico y ligero. Cuídate mucho que queremos verte preciosa para Navidad. ¡Vamos! 💖",
                 duchar: "Es hora de cuidarte amiga. Entra al baño, relájate y empieza a sentirte mejor cada día. ✨",
@@ -204,6 +298,7 @@
                 brazos: "¡Eso es campeón! Mueve esos brazos, que queremos que esa camisa te quede perfecta. ¡Vamos que te vas a ver genial! 💪😎",
                 calentar: "Empecemos calentando bien amigo. ¡Vamos que vas a estar de diez para las fiestas! No te detengas. ✨💪",
                 estirar: "Estira bien bro, relájate pero sigue así. ¡Vamos que vas a quedar espectacular! 💪✨",
+                cardio: "¡Dale con todo campeón! Acelera el paso, que vas a estar muy bien. ¡Tú puedes con todo! ❤️💪✨",
                 completo: "Dale todo lo que tienes amigo. ¡Queremos verte papelito y muy guapo para Navidad! ¡Tú puedes con todo! 💪😎✨",
                 comer: "Amigo, come bien y sano. Cuídate mucho que queremos verte genial. ¡Vamos! 💪",
                 duchar: "Es hora de cuidarte bro. Entra al baño, relájate y sal renovado. ✨",
@@ -218,6 +313,7 @@
                 brazos: "Dale fuerte a esos brazos 💪",
                 calentar: "Empecemos con energía ✨",
                 estirar: "Relájate y sigue avanzando 💖",
+                cardio: "¡A moverse con todo! 💪✨",
                 completo: "Mueve todo el cuerpo, ¡tú puedes! 💪",
                 limpiar: "Es hora de ordenar, ¡vamos tú puedes! 💪✨",
                 estudiar: "Ánimo, tú eres muy capaz 💖",
